@@ -31,22 +31,10 @@ public class CadastroProdutos {
             else
             {
                 System.out.printf("Digite o código do produto:\t");
-                int codigoAdicionar;
-                try
+                int codigoAdicionar = 0;
+                codigoAdicionar = verificaCod(ler, codigoAdicionar);
+                if (codigoAdicionar == -1)
                 {
-                    codigoAdicionar = ler.nextInt(); ler.nextLine();
-                }
-                catch (InputMismatchException e)
-                {
-                    System.err.println("\nCódigo do produto só pode conter números inteiros !!!");
-                    ler.nextLine();
-
-                    System.out.printf("\n\n\nENTER para continuar:\t");
-                    String continuar = ler.nextLine();
-                    if (continuar.isBlank())
-                    {
-                        limpa();
-                    }
                     break;
                 }
                 System.out.printf("Digite o valor do produto:\t");
@@ -188,8 +176,12 @@ public class CadastroProdutos {
                     tela.removerProduto();
     
                     System.out.printf("Digite o código do produto (\"-1\" para sair):\t");
-                    int codigoProcurar = ler.nextInt();
-                    ler.nextLine();
+                    int codigoProcurar = 0;
+                    codigoProcurar = verificaCod(ler, codigoProcurar);
+                    if (codigoProcurar == -1)
+                    {
+                        break;
+                    }
     
                     if (codigoProcurar == -1)
                     {
@@ -264,8 +256,12 @@ public class CadastroProdutos {
                 tela.adicionaQtdEstoque();    
 
                 System.out.printf("Digite o código do produto (\"-1\" para sair):\t");
-                int codigoProcurar = ler.nextInt();
-                ler.nextLine();
+                int codigoProcurar = 0;
+                codigoProcurar = verificaCod(ler, codigoProcurar);
+                if (codigoProcurar == -1)
+                {
+                    break;
+                }
 
                 if (codigoProcurar == -1)
                 {
@@ -323,6 +319,27 @@ public class CadastroProdutos {
                 }
             }
         }
+    }
+    
+    public int verificaCod (Scanner ler, int cod) throws InterruptedException, IOException {
+        try
+        {
+            cod = ler.nextInt(); ler.nextLine();
+            return cod;
+        }
+        catch (InputMismatchException e)
+        {
+            System.err.println("\nCódigo só pode conter números inteiros !!!");
+            ler.nextLine();
+
+            System.out.printf("\n\n\nENTER para continuar:\t");
+            String continuar = ler.nextLine();
+            if (continuar.isBlank())
+            {
+                limpa();
+            }
+        }
+        return -1;
     }
     public static void sleep(int sleep) throws InterruptedException {
         Thread.sleep(sleep);
