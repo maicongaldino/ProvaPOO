@@ -29,11 +29,10 @@ public class Relatorios {
         else
         {
             System.out.printf("|%-25.25s|\t%-25.25s|\t%-25.25s|\t%-15.15s|\n", "Código", "Produto", "Valor (R$)", "Quantidade");
-            System.out.printf("|--------------------------------------------------------------------------------------------------------------|\n");
-            for (Produto p : listaProdutos) {
-                System.out.printf("|%-25.25s|\t%-25.25s|\t%-25.25s|\t%-15.15s|\n", p.getCodigo(), p.getNome(), p.getValor(), p.getQuantidade());
-            }
-            System.out.printf("|--------------------------------------------------------------------------------------------------------------|\n");
+            System.out.printf("|-------------------------|------------------------------|-------------------------------|---------------------|\n");
+            listaProdutos.forEach(p -> 
+                System.out.printf("|%-25.25s|\t%-25.25s|\t%-25.25s|\t%-15.15s|\n", p.getCodigo(), p.getNome(), p.getValor(), p.getQuantidade()));
+            System.out.printf("|-------------------------|------------------------------|-------------------------------|---------------------|\n");
             DoubleSummaryStatistics dados = listaProdutos.stream()
             .collect(Collectors.summarizingDouble(Produto::getValor));
             System.out.printf("  Valor mínimo: %.2f\t\tValor máximo: %.2f\t\tValor médio: %.2f", dados.getMin(), dados.getMax(), dados.getAverage());
@@ -245,11 +244,10 @@ public class Relatorios {
             }).collect(Collectors.toList());
                   
         System.out.printf("|%-25.25s|\t%-30.30s|\t%-20.20s|\t%-20.20s|\t%-20.20s|\n", "Data", "Produto", "Quantidade", "Valor (R$)", "Valor total (R$)");
-        System.out.println("|-----------------------------------------------------------------------------------------------------------------------------------|");
-        for (Venda venda : vendasPeriodo) {
-            System.out.printf("|%-25.25s|\t%-30.30s|\t%-20.20s|\t%-20.20s|\t%-20.20s|\n", venda.getDataVenda().format(formataData), venda.getProduto().getNome(), venda.getQuantVendida(), venda.getProduto().getValor(), venda.getValorTotal());
-        }
-        System.out.println("|-----------------------------------------------------------------------------------------------------------------------------------|");
+        System.out.println("|-------------------------|-----------------------------------|----------------------|----------------------|-----------------------|");
+        vendasPeriodo.forEach(p -> 
+        System.out.printf("|%-25.25s|\t%-30.30s|\t%-20.20s|\t%-20.20s|\t%-20.20s|\n", p.getDataVenda().format(formataData), p.getProduto().getNome(), p.getQuantVendida(), p.getProduto().getValor(), p.getValorTotal()));
+        System.out.println("|-------------------------|-----------------------------------|---------------------------------------------|-----------------------|");
         DoubleSummaryStatistics dadosVendas = vendasPeriodo.stream()
         .collect(Collectors.summarizingDouble(Venda::getValorTotal));
         System.out.printf("  Valor médio desse período: %.2f", dadosVendas.getAverage());

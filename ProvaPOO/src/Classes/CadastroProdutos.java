@@ -1,6 +1,7 @@
 package Classes;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,9 +31,43 @@ public class CadastroProdutos {
             else
             {
                 System.out.printf("Digite o código do produto:\t");
-                int codigoAdicionar = ler.nextInt(); ler.nextLine();
+                int codigoAdicionar;
+                try
+                {
+                    codigoAdicionar = ler.nextInt(); ler.nextLine();
+                }
+                catch (InputMismatchException e)
+                {
+                    System.err.println("\nCódigo do produto só pode conter números inteiros !!!");
+                    ler.nextLine();
+
+                    System.out.printf("\n\n\nENTER para continuar:\t");
+                    String continuar = ler.nextLine();
+                    if (continuar.isBlank())
+                    {
+                        limpa();
+                    }
+                    break;
+                }
                 System.out.printf("Digite o valor do produto:\t");
-                double valorProduto = ler.nextDouble();
+                double valorProduto;
+                try 
+                {
+                    valorProduto = ler.nextDouble();
+                } 
+                catch (InputMismatchException e) 
+                {
+                    System.out.println("\nValor do produto só pode conter números !!!");
+                    ler.nextLine();
+
+                    System.out.printf("\n\n\nENTER para continuar:\t");
+                    String continuar = ler.nextLine();
+                    if (continuar.isBlank())
+                    {
+                        limpa();
+                    }
+                    break;
+                }
                 System.out.printf("Digite a quantidade em estoque:\t");
                 int quantAdc = ler.nextInt();
                 boolean acheiNome = false;
@@ -100,13 +135,21 @@ public class CadastroProdutos {
             }
             else
             {
-                System.out.println("");
-                listaProdutos.stream()
-                    .filter(p -> p.getNome().contains(nomeProOuTodos))
-                    .forEach(System.out::println);
+                boolean acheiNome = false;
+                for (Produto p : listaProdutos) {
+                    if (p.getNome().contains(nomeProOuTodos))
+                    {
+                        acheiNome = true;
+                        System.out.println("\n" + p + "\n");
+                    }
+                }
+                if (acheiNome == false)
+                {
+                    System.out.println("\nProduto não encontrado !!!");
+                }
             }
 
-            System.out.printf("\nENTER para continuar:\t");
+            System.out.printf("\n\n\nENTER para continuar:\t");
             String continuar = ler.nextLine();
             if (continuar.isBlank())
             {
