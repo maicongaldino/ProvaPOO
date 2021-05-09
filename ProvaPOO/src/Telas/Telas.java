@@ -40,7 +40,8 @@ public class Telas {
         System.out.println("1  --  Produtos");
         System.out.println("2  --  Vendas por período - detalhado");
         System.out.println("3  --  Vendas por período - consolidado");
-        System.out.printf("0  --  Voltar ao menu anterior\n-->\t");
+        System.out.println("0  --  Voltar ao menu anterior");
+        System.out.printf("\nOpção:\t");
         int opcaoRelatorio = ler.nextInt();
         return opcaoRelatorio;
     }

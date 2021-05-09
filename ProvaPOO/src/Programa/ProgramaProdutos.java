@@ -2,6 +2,7 @@ package Programa;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,8 +32,11 @@ public class ProgramaProdutos {
 
         do
         {
-            opcaoMenu = tela.exibirMenuPrincipal(ler);
-            ler.nextLine();
+            opcaoMenu = -1;
+            try
+            {
+                opcaoMenu = tela.exibirMenuPrincipal(ler);
+                ler.nextLine();
 
             switch (opcaoMenu)
             {
@@ -123,6 +127,20 @@ public class ProgramaProdutos {
                     limpa();
                 break;
             }
+            }
+            catch (InputMismatchException e)
+            {
+                System.out.println("\n\nOpcão só pode ser número inteiro !!!");
+                ler.nextLine();
+
+                System.out.printf("\n\n\nENTER para continuar:\t");
+                String continuar = ler.nextLine();
+                if (continuar.isBlank())
+                {
+                    limpa();
+                }
+            }
+            
         } while (opcaoMenu != 0);
         ler.close();
     }
