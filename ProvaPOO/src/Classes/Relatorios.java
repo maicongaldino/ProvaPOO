@@ -192,7 +192,7 @@ public class Relatorios {
                 limpa();
                 tela.vendasPeriodoConsoImprimir();
                 String dataProcurar;
-                System.out.printf("Digite a data inicial (\"ENTER\" para a de hoje) ou \"SAIR\", parar:\t");
+                System.out.printf("Digite a data (\"ENTER\" para a de hoje) ou \"SAIR\", parar:\t");
                 dataProcurar = ler.nextLine();
                 if (dataProcurar.equalsIgnoreCase("SAIR"))
                 {
