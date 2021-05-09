@@ -26,13 +26,12 @@ public class ProgramaProdutos {
 
         Telas tela = new Telas();
 
-        int opcaoMenu;
+        int opcaoMenu = -1;
 
         limpa();
 
         do
         {
-            opcaoMenu = -1;
             try
             {
                 opcaoMenu = tela.exibirMenuPrincipal(ler);
