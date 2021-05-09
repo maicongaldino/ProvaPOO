@@ -57,7 +57,24 @@ public class CadastroProdutos {
                     break;
                 }
                 System.out.printf("Digite a quantidade em estoque:\t");
-                int quantAdc = ler.nextInt();
+                int quantAdc;
+                try
+                {
+                    quantAdc = ler.nextInt();
+                } 
+                catch (InputMismatchException e)
+                {
+                    System.out.println("\nQuantidade do produto só pode conter números inteiros !!!");
+                    ler.nextLine();
+
+                    System.out.printf("\n\n\nENTER para continuar:\t");
+                    String continuar = ler.nextLine();
+                    if (continuar.isBlank())
+                    {
+                        limpa();
+                    }
+                    break;
+                }
                 boolean acheiNome = false;
                 boolean acheiCodigo = false;
                 ler.nextLine();

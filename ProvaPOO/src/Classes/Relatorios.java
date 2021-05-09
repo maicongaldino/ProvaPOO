@@ -1,6 +1,7 @@
 package Classes;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -18,6 +19,9 @@ public class Relatorios {
     public void produto(Scanner ler, List<Produto> listaProdutos) throws InterruptedException, IOException {
         Telas tela = new Telas();
 
+        DecimalFormat df = new DecimalFormat();
+        df.applyPattern("#,##0.00");
+
         limpa();
         tela.listarProdutos();
         if (listaProdutos.isEmpty())
@@ -31,7 +35,7 @@ public class Relatorios {
             System.out.printf("|%-25.25s|\t%-25.25s|\t%-25.25s|\t%-15.15s|\n", "Código", "Produto", "Valor (R$)", "Quantidade");
             System.out.printf("|-------------------------|------------------------------|-------------------------------|---------------------|\n");
             listaProdutos.forEach(p -> 
-                System.out.printf("|%-25.25s|\t%-25.25s|\t%-25.25s|\t%-15.15s|\n", p.getCodigo(), p.getNome(), p.getValor(), p.getQuantidade()));
+                System.out.printf("|%-25.25s|\t%-25.25s|\t%-25.25s|\t%-15.15s|\n", p.getCodigo(), p.getNome(), df.format(p.getValor()), p.getQuantidade()));
             System.out.printf("|-------------------------|------------------------------|-------------------------------|---------------------|\n");
             DoubleSummaryStatistics dados = listaProdutos.stream()
             .collect(Collectors.summarizingDouble(Produto::getValor));
@@ -174,7 +178,7 @@ public class Relatorios {
     }
     public void vendasPeriodoConso (Scanner ler, List<Venda> listaVendas) throws InterruptedException, IOException {
         Telas tela = new Telas();
-
+        
         limpa();
         tela.vendasPeriodoConsoImprimir();
         
@@ -232,6 +236,9 @@ public class Relatorios {
     private void ralatorioVendasDe(List<Venda> listaVendas, String dataInicial, String dataFinal) throws InterruptedException, IOException {
         Telas tela = new Telas();
 
+        DecimalFormat df = new DecimalFormat();
+        df.applyPattern("#,##0.00");
+
         limpa();
         tela.vendasPeriodoDeImprimir();
         DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -246,7 +253,7 @@ public class Relatorios {
         System.out.printf("|%-25.25s|\t%-30.30s|\t%-20.20s|\t%-20.20s|\t%-20.20s|\n", "Data", "Produto", "Quantidade", "Valor (R$)", "Valor total (R$)");
         System.out.println("|-------------------------|-----------------------------------|---------------------|-----------------------|-----------------------|");
         vendasPeriodo.forEach(p -> 
-        System.out.printf("|%-25.25s|\t%-30.30s|\t%-20.20s|\t%-20.20s|\t%-20.20s|\n", p.getDataVenda().format(formataData), p.getProduto().getNome(), p.getQuantVendida(), p.getProduto().getValor(), p.getValorTotal()));
+        System.out.printf("|%-25.25s|\t%-30.30s|\t%-20.20s|\t%-20.20s|\t%-20.20s|\n", p.getDataVenda().format(formataData), p.getProduto().getNome(), p.getQuantVendida(), df.format(p.getProduto().getValor()), df.format(p.getValorTotal())));
         System.out.println("|-------------------------|-----------------------------------|---------------------|-----------------------|-----------------------|");
         DoubleSummaryStatistics dadosVendas = vendasPeriodo.stream()
         .collect(Collectors.summarizingDouble(Venda::getValorTotal));
@@ -255,6 +262,10 @@ public class Relatorios {
 
     private void ralatorioVendasConso(List<Venda> listaVendas, String dataProcurar) throws InterruptedException, IOException {
         Telas tela = new Telas();
+
+        DecimalFormat df = new DecimalFormat();
+        df.applyPattern("#,##0.00");
+
         limpa();
         tela.vendasPeriodoConsoImprimir();
         
@@ -275,7 +286,7 @@ public class Relatorios {
 
         System.out.printf("|%-25.25s|\t%-30.30s|\t%-20.20s|\n", "Data", "Quantidade total vendida", "Valor total vendido (R$)");
         System.out.println("|-------------------------|-----------------------------------|---------------------|");
-        System.out.printf("|%-25.25s|\t%-30.30s|\t%-20.20s|\n", dataProcurar, quantTotalVendida.getSum(), valorTotalVendido.getSum());
+        System.out.printf("|%-25.25s|\t%-30.30s|\t%-20.20s|\n", dataProcurar, quantTotalVendida.getSum(), df.format(valorTotalVendido.getSum()));
         System.out.println("|-------------------------|-----------------------------------|---------------------|");
         DoubleSummaryStatistics maiorVendaFeita = vendasPeriodo.stream()
             .collect(Collectors.summarizingDouble(Venda::getValorTotal));
