@@ -283,7 +283,25 @@ public class CadastroProdutos {
                             if (opcaoSNestoque.equalsIgnoreCase("S") || opcaoSNestoque.isBlank())
                             {
                                 System.out.printf("\nDigite quanto deseja adicionar ao estoque:\t");
-                                int quantAdcEstoque = ler.nextInt();
+                                int quantAdcEstoque;
+                                try 
+                                {
+                                    quantAdcEstoque = ler.nextInt();
+                                } 
+                                catch (InputMismatchException e) 
+                                {
+                                    System.out.println("\nQuantidade que deseja adicionar só pode conter números !!!");
+                                    ler.nextLine();
+                
+                                    System.out.printf("\n\n\nENTER para continuar:\t");
+                                    String continuar = ler.nextLine();
+                                    if (continuar.isBlank())
+                                    {
+                                        limpa();
+                                    }
+                                    break;
+                                }
+
                                 if (quantAdcEstoque == 0)
                                 {
                                     limpa();

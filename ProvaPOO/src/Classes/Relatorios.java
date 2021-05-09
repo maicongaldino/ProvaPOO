@@ -244,10 +244,10 @@ public class Relatorios {
             }).collect(Collectors.toList());
                   
         System.out.printf("|%-25.25s|\t%-30.30s|\t%-20.20s|\t%-20.20s|\t%-20.20s|\n", "Data", "Produto", "Quantidade", "Valor (R$)", "Valor total (R$)");
-        System.out.println("|-------------------------|-----------------------------------|----------------------|----------------------|-----------------------|");
+        System.out.println("|-------------------------|-----------------------------------|---------------------|-----------------------|-----------------------|");
         vendasPeriodo.forEach(p -> 
         System.out.printf("|%-25.25s|\t%-30.30s|\t%-20.20s|\t%-20.20s|\t%-20.20s|\n", p.getDataVenda().format(formataData), p.getProduto().getNome(), p.getQuantVendida(), p.getProduto().getValor(), p.getValorTotal()));
-        System.out.println("|-------------------------|-----------------------------------|---------------------------------------------|-----------------------|");
+        System.out.println("|-------------------------|-----------------------------------|---------------------|-----------------------|-----------------------|");
         DoubleSummaryStatistics dadosVendas = vendasPeriodo.stream()
         .collect(Collectors.summarizingDouble(Venda::getValorTotal));
         System.out.printf("  Valor médio desse período: %.2f", dadosVendas.getAverage());
@@ -274,10 +274,9 @@ public class Relatorios {
             .collect(Collectors.summarizingDouble(Venda::getValorTotal));
 
         System.out.printf("|%-25.25s|\t%-30.30s|\t%-20.20s|\n", "Data", "Quantidade total vendida", "Valor total vendido (R$)");
-        System.out.println("|-----------------------------------------------------------------------------------|");
+        System.out.println("|-------------------------|-----------------------------------|---------------------|");
         System.out.printf("|%-25.25s|\t%-30.30s|\t%-20.20s|\n", dataProcurar, quantTotalVendida.getSum(), valorTotalVendido.getSum());
-
-        System.out.println("|-----------------------------------------------------------------------------------|");
+        System.out.println("|-------------------------|-----------------------------------|---------------------|");
         DoubleSummaryStatistics maiorVendaFeita = vendasPeriodo.stream()
             .collect(Collectors.summarizingDouble(Venda::getValorTotal));
         System.out.printf("  Maior venda feita: %.2f", maiorVendaFeita.getMax());
